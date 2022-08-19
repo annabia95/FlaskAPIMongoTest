@@ -24,12 +24,11 @@ def ping_server():
 
 @api.route('/animals')
 def get_stored_animals():
-    db=""
     try:
         db = get_db()
         _animals = db.animal_tb.find()
         animals = [{"id": animal["id"], "name": animal["name"], "type": animal["type"]} for animal in _animals]
-        return jsonify({"animals": animals})
+        return jsonify({"animals": animals}), 200
     except:
         pass
     finally:
@@ -38,7 +37,7 @@ def get_stored_animals():
 
 @api.route('/animals/wild')
 def get_wild_animals():
-    db=""
+
     try:
         db = get_db()
         _animals = db.animal_tb.find(filter = {
@@ -46,7 +45,7 @@ def get_wild_animals():
           },
         allow_partial_results = True)
         animals = [{"id": animal["id"], "name": animal["name"], "type": animal["type"]} for animal in _animals]
-        return jsonify({"animals": animals})
+        return jsonify({"animals": animals}), 200
     except:
         pass
     finally:
